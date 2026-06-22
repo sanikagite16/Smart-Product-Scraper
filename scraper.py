@@ -12,7 +12,7 @@ if response.status_code != 200:
 
 products = response.json()
 
-    product_list = []
+product_list = []
 
     for product in products:
 
