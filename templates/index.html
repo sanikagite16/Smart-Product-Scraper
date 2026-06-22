@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Smart Product Scraper</title>
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Smart Product Scraper</h1>
+
+<p class="subtitle">
+Extract and Analyze Product Data
+</p>
+
+<div class="status">
+🟢 Live Data Successfully Scraped
+</div>
+
+<div class="scrape-time">
+🕒 Last Scraped: Today
+</div>
+
+<div class="live-badge">
+🟢 LIVE
+</div>
+
+<div class="search-container">
+
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="Search Products..."
+    onkeyup="showSuggestions()"
+    >
+
+    <span
+    class="search-icon"
+    onclick="searchProducts()">
+        <i class="fas fa-search"></i>
+    </span>
+
+    <div id="suggestions"></div>
+
+</div>
+
+<button class="csv-btn"
+onclick="downloadCSV()">
+📥 Download CSV
+</button>
+
+<button class="scrape-btn" onclick="startScraping()">
+🚀 Start New Scrape
+</button>
+
+<div class="stats">
+
+<div class="stat-card">
+
+<h2>{{ products|length }}</h2>
+
+<span>Total Products</span>
+
+</div>
+
+<div class="stat-card">
+<h2>₹{{ highest }}</h2>
+<p>Highest Price</p>
+</div>
+
+<div class="stat-card">
+<h2>₹{{ lowest }}</h2>
+<p>Lowest Price</p>
+</div>
+
+<div class="stat-card">
+<h2>4.7 ⭐</h2>
+<p>Best Rating</p>
+</div>
+</div>
+
+<div class="sort-buttons">
+
+<button onclick="sortProducts('low')">
+💰 Price Low → High
+</button>
+
+<button onclick="sortProducts('high')">
+💎 Price High → Low
+</button>
+
+<button onclick="sortProducts('rating')">
+⭐ Best Rating
+</button>
+
+</div>
+
+<div class="filters">
+
+<button
+class="active-filter"
+onclick="setActive(this); filterProducts('all')">
+All
+</button>
+
+<button onclick="setActive(this); filterProducts('electronics')">
+Electronics ({{ electronics_count }})
+</button>
+
+<button onclick="setActive(this); filterProducts('Fashion')">
+Fashion ({{ fashion_count }})
+</button>
+
+<button onclick="setActive(this); filterProducts('Jewelry')">
+Jewelry ({{ jewelry_count }})
+</button>
+
+</div>
+<p id="noResults">
+❌ No Products Found
+</p>
+<div class="products">
+
+{% for product in products %}
+
+<div
+class="card"
+data-category="{{ product.category }}"
+data-price="{{ product.price }}"
+data-rating="{{ product.rating }}"
+onclick="openModal(
+'{{ product.image }}',
+`{{ product.name }}`,
+'{{ product.price }}',
+'{{ product.category }}',
+'{{ product.rating }}'
+)">
+
+<img
+src="{{ product.image }}"
+class="product-image"
+>
+
+{% if product.rating >= 4.5 %}
+
+<div class="top-rated">
+🏆 Top Rated
+</div>
+
+{% endif %}
+
+<h3>{{ product.name }}</h3>
+
+<p class="price">
+{{ product.price }}
+</p>
+
+<p class="category">
+{{ product.category }}
+</p>
+
+<p class="rating">
+⭐ {{ product.rating }}
+</p>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+</div>
+<div id="productModal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal"
+        onclick="closeModal()">
+        &times;
+        </span>
+
+        <img id="modalImage">
+
+        <h2 id="modalTitle"></h2>
+
+        <h3 id="modalPrice"></h3>
+
+        <p id="modalCategory"></p>
+
+        <p id="modalRating"></p>
+
+    </div>
+
+</div>
+
+<footer>
+
+<div class="footer-name">
+ Built by Sanika Gite
+</div>
+
+<div class="footer-tech">
+Python • Flask • BeautifulSoup • Web Scraping
+</div>
+
+</footer>
+
+<button id="topBtn" onclick="topFunction()">
+⬆
+</button>
+<script
+src="{{ url_for('static', filename='script.js') }}">
+</script>
+
+
+</body>
+
+</html>
