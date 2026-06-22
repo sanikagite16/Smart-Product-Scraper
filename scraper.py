@@ -7,12 +7,12 @@ def scrape_products():
 
     response = requests.get(url, timeout=10)
 
-if response.status_code != 200:
-    return []
+    if response.status_code != 200:
+        return []
 
-products = response.json()
+    products = response.json()
 
-product_list = []
+    product_list = []
 
     for product in products:
 
