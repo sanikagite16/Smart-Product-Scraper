@@ -5,12 +5,13 @@ def scrape_products():
 
     url = "https://fakestoreapi.com/products"
 
-    response = requests.get(url, timeout=10)
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        products = response.json()
 
-    if response.status_code != 200:
+    except:
         return []
-
-    products = response.json()
 
     product_list = []
 

@@ -9,6 +9,17 @@ def home():
 
     products = scrape_products()
 
+    if not products:
+        return render_template(
+            "index.html",
+            products=[],
+            highest=0,
+            lowest=0,
+            electronics_count=0,
+            fashion_count=0,
+            jewelry_count=0
+        )
+
     electronics_count = len(
         [p for p in products if p["category"] == "electronics"]
     )
