@@ -653,48 +653,13 @@ margin-bottom:10px;
 
 }
 
-.sort-buttons{
-
-display:flex;
-
-justify-content:center;
-
-gap:15px;
-
-margin:25px 0;
-
-flex-wrap:wrap;
-
+.status-row{
+    display:flex;
+    justify-content:center;
+    margin:15px 0;
 }
 
-.sort-buttons button{
-
-background:white;
-
-border:none;
-
-padding:12px 22px;
-
-border-radius:30px;
-
-cursor:pointer;
-
-font-weight:600;
-
-color:#7c3aed;
-
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-
-transition:0.3s;
-
-}
-
-.sort-buttons button:hover{
-
-background:#7c3aed;
-
-color:white;
-
-transform:translateY(-3px);
-
+.live-badge{
+    position:static;
+    display:inline-block;
 }

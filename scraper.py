@@ -3,14 +3,23 @@ import csv
 
 def scrape_products():
 
-    url = "https://fakestoreapi.com/products"
-
     try:
-        response = requests.get(url, timeout=10)
+        url = "https://fakestoreapi.com/products"
+
+        response = requests.get(
+            url,
+            timeout=15,
+            headers={
+                "User-Agent": "Mozilla/5.0"
+            }
+        )
+
         response.raise_for_status()
+
         products = response.json()
 
-    except:
+    except Exception as e:
+        print("API ERROR:", e)
         return []
 
     product_list = []
@@ -29,13 +38,11 @@ def scrape_products():
             category = "Jewelry"
 
         product_list.append({
-
             "name": product["title"],
             "price": f"₹{round(product['price'] * 85)}",
             "category": category,
             "rating": product["rating"]["rate"],
             "image": product["image"]
-
         })
 
     with open(
@@ -55,7 +62,6 @@ def scrape_products():
         ])
 
         for product in product_list:
-
             writer.writerow([
                 product["name"],
                 product["price"],
