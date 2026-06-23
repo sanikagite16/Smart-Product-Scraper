@@ -1,33 +1,54 @@
-# Smart-Product-Scraper
-Developed a Smart Product Scraper that extracts and processes live product data from an online product data source and presents it through an interactive dashboard.
+# Smart Product Scraper
 
-# 🛒 Smart Product Scraper
-
-A responsive web application built using Python, Flask, HTML, CSS and JavaScript that extracts live product data from FakeStore API and displays it in an interactive dashboard.
+A responsive web application built using Python, Flask, HTML, CSS and JavaScript that extracts and displays product data from multiple categories.
 
 ## Features
 
-- Live Product Extraction
 - Product Search
-- Smart Suggestions
+- Product Sorting
 - Category Filters
-- Price & Rating Sorting
-- CSV Download
+- Dynamic Statistics Dashboard
+- CSV Export
 - Responsive Design
+- Product Details Popup
+
+## Categories
+
+- Electronics
+- Beauty
+- Groceries
+- Furniture
 
 ## Technologies Used
 
 - Python
 - Flask
+- Requests
 - HTML
 - CSS
 - JavaScript
-- FakeStore API
+- CSV
 
-## Data Extracted
+## How to Run
 
-- Product Name
-- Price
-- Category
-- Rating
-- Product Image
+1. Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+2. Run application
+
+```bash
+python app.py
+```
+
+3. Open browser
+
+```text
+http://127.0.0.1:5000
+```
+
+## Author
+
+Sanika Gite
