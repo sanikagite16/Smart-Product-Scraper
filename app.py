@@ -1,5 +1,4 @@
-from flask import Flask, render_template
-from flask import send_file
+from flask import Flask, render_template, send_file
 from scraper import scrape_products
 
 app = Flask(__name__)
@@ -10,41 +9,56 @@ def home():
     products = scrape_products()
 
     if not products:
+
         return render_template(
             "index.html",
             products=[],
             highest=0,
             lowest=0,
+            best_rating=0,
             electronics_count=0,
-            fashion_count=0,
-            jewelry_count=0
+            beauty_count=0,
+            groceries_count=0,
+            furniture_count=0
         )
 
     electronics_count = len(
-        [p for p in products if p["category"] == "electronics"]
+        [p for p in products if p["category"] == "Electronics"]
     )
 
-    fashion_count = len(
-        [p for p in products if p["category"] == "Fashion"]
+    beauty_count = len(
+        [p for p in products if p["category"] == "Beauty"]
     )
 
-    jewelry_count = len(
-        [p for p in products if p["category"] == "Jewelry"]
+    groceries_count = len(
+        [p for p in products if p["category"] == "Groceries"]
+    )
+
+    furniture_count = len(
+        [p for p in products if p["category"] == "Furniture"]
     )
 
     prices = [
-        int(p["price"].replace("₹", ""))
+        int(str(p["price"]).replace("₹", ""))
+        for p in products
+    ]
+
+    ratings = [
+        float(p["rating"])
         for p in products
     ]
 
     return render_template(
         "index.html",
         products=products,
+        total_products=len(products),
         highest=max(prices),
         lowest=min(prices),
+        best_rating=max(ratings),
         electronics_count=electronics_count,
-        fashion_count=fashion_count,
-        jewelry_count=jewelry_count
+        beauty_count=beauty_count,
+        groceries_count=groceries_count,
+        furniture_count=furniture_count
     )
 
 @app.route("/products.csv")

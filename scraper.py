@@ -4,45 +4,67 @@ import csv
 def scrape_products():
 
     try:
-        url = "https://fakestoreapi.com/products"
 
-        response = requests.get(
-            url,
-            timeout=15,
-            headers={
-                "User-Agent": "Mozilla/5.0"
-            }
-        )
+        all_products = []
 
-        response.raise_for_status()
+        urls = [
+            "https://dummyjson.com/products/category/smartphones",
+            "https://dummyjson.com/products/category/laptops",
+            "https://dummyjson.com/products/category/beauty",
+            "https://dummyjson.com/products/category/groceries",
+            "https://dummyjson.com/products/category/furniture"
+        ]
 
-        products = response.json()
+        for url in urls:
+
+            response = requests.get(
+                url,
+                timeout=15,
+                headers={
+                    "User-Agent": "Mozilla/5.0"
+                }
+            )
+
+            response.raise_for_status()
+
+            data = response.json()["products"]
+
+            all_products.extend(data)
 
     except Exception as e:
+
         print("API ERROR:", e)
         return []
 
     product_list = []
 
-    for product in products:
+    for product in all_products:
 
         category = product["category"]
 
-        if category == "men's clothing":
-            category = "Fashion"
+        if category in [
+            "smartphones",
+            "laptops"
+        ]:
+            category = "Electronics"
 
-        if category == "women's clothing":
-            category = "Fashion"
+        elif category == "beauty":
+            category = "Beauty"
 
-        if category == "jewelery":
-            category = "Jewelry"
+        elif category == "groceries":
+            category = "Groceries"
+
+        elif category == "furniture":
+            category = "Furniture"
 
         product_list.append({
+
             "name": product["title"],
             "price": f"₹{round(product['price'] * 85)}",
             "category": category,
-            "rating": product["rating"]["rate"],
-            "image": product["image"]
+            "rating": product["rating"],
+            "image": product["thumbnail"]
+
         })
 
     with open(
@@ -62,6 +84,7 @@ def scrape_products():
         ])
 
         for product in product_list:
+
             writer.writerow([
                 product["name"],
                 product["price"],

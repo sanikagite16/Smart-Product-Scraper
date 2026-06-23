@@ -71,7 +71,7 @@ onclick="downloadCSV()">
 
 <div class="stat-card">
 
-<h2>{{ products|length }}</h2>
+<h2>{{ total_products }}</h2>
 
 <span>Total Products</span>
 
@@ -88,7 +88,7 @@ onclick="downloadCSV()">
 </div>
 
 <div class="stat-card">
-<h2>4.7 ⭐</h2>
+<h2>{{ "%.1f"|format(best_rating) }} ⭐</h2>
 <p>Best Rating</p>
 </div>
 </div>
@@ -117,16 +117,20 @@ onclick="setActive(this); filterProducts('all')">
 All
 </button>
 
-<button onclick="setActive(this); filterProducts('electronics')">
+<button onclick="setActive(this); filterProducts('Electronics')">
 Electronics ({{ electronics_count }})
 </button>
 
-<button onclick="setActive(this); filterProducts('Fashion')">
-Fashion ({{ fashion_count }})
+<button onclick="setActive(this); filterProducts('Beauty')">
+Beauty ({{ beauty_count }})
 </button>
 
-<button onclick="setActive(this); filterProducts('Jewelry')">
-Jewelry ({{ jewelry_count }})
+<button onclick="setActive(this); filterProducts('Groceries')">
+Groceries ({{ groceries_count }})
+</button>
+
+<button onclick="setActive(this); filterProducts('Furniture')">
+Furniture ({{ furniture_count }})
 </button>
 
 </div>

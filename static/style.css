@@ -663,3 +663,27 @@ margin-bottom:10px;
     position:static;
     display:inline-block;
 }
+
+.sort-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    flex-wrap:wrap;
+    margin:25px 0;
+}
+
+.sort-buttons button{
+    background:white;
+    border:none;
+    padding:12px 22px;
+    border-radius:30px;
+    font-weight:600;
+    color:#7c3aed;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.sort-buttons button:hover{
+    transform:translateY(-3px);
+}
